@@ -1,17 +1,20 @@
 {
-  "name": "tweak-manager",
-  "version": "1.0.0",
+  "name": "@pixeljellyfish/tweak-manager",
+  "version": "1.1.2",
   "description": "A tweak/repo Manager to make managing a repo that much easier",
   "bin": {
     "TweakManager": "./TweakM.js"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },  
   "main": "TweakM.js",
   "scripts": {
     "TweakM.js": "node TweakM.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pixeljellyfish/TweakManager.git"
+    "url": "git+https://github.com/pixeljellyfish/tweak-manager.git"
   },
   "keywords": [
     "Tweak"

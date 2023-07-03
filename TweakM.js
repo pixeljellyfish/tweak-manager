@@ -4,26 +4,6 @@ const readlineSync = require('readline-sync');
 const { execSync } = require('child_process');
 const path = require('path');
 
-function findFolder(folderName) {
-  try {
-    const command = `find . -type d -name "${folderName}"`;
-    console.log(`Executing command: ${command}`);
-    const result = execSync(command).toString().trim();
-    const folderPaths = result.split('\n').map((folderPath) => folderPath.trim());
-    console.log('Folder paths:', folderPaths);
-    if (folderPaths.length === 0 || folderPaths[0] === '') {
-      console.log(`Folder '${folderName}' not found.`);
-      process.exit(1);
-    } else {
-      console.log(`Folder '${folderName}' found at: ${folderPaths[0]}`);
-      return folderPaths[0]; // Return the folder path
-    }
-  } catch (error) {
-    console.error('Error occurred while searching for the folder.');
-    process.exit(1);
-  }
-}
-
 function copyFile(source, destination) {
   try {
     const command = `cp "${source}" "${destination}"`;
@@ -36,30 +16,50 @@ function copyFile(source, destination) {
 }
 
 function main() {
-  console.log('=== Tweaks And Repo Manager ===');
-  console.log("starting Tweaks And Repo Manager...")
-  console.log("by PixelJellyfish")
-  console.log("...")
-  console.log("getting latest .deb file...")
+  console.log('\x1b[33m=== Tweaks And Repo Manager ===\x1b[0m');
+  console.log('\x1b[33mstarting Tweaks And Repo Manager...\x1b[0m');
+  console.log('\x1b[33mby PixelJellyfish\x1b[0m');
+  console.log('\x1b[35m...\x1b[0m');
+  readlineSync.question('\x1b[33mPress Enter To Continue...\x1b[0m');
+  
   const tweaksFolderPath = '/Users/pixeljellyfish/c0mebackf0lders/packages/';
+  console.log(`\x1b[35mTweaks folder path: \x1b[32m${tweaksFolderPath}\x1b[0m`);
+  readlineSync.question('\x1b[33mPress Enter To Continue...\x1b[0m');
+  
   const repoFolderPath = '/Users/pixeljellyfish/repo/debs'; // Replace with the actual path of the repo folder
-  console.log("Please Wait...")
-  console.log("Executing command: find")
+  console.log(`\x1b[35mRepo folder path: \x1b[32m${repoFolderPath}\x1b[0m`);
+  readlineSync.question('\x1b[33mPress Enter To Continue...\x1b[0m');
+  
+  console.log('\x1b[35mPlease Wait...\x1b[0m');
+  console.log('\x1b[35mGetting the latest .deb file...\x1b[0m');
+  readlineSync.question('\x1b[33mPress Enter To Continue...\x1b[0m');
+  
+  console.log(`\x1b[35mExecuting command: find latest .deb file in ${tweaksFolderPath}`);
+  readlineSync.question('\x1b[33mPress Enter To Continue...\x1b[0m');
+  
+  console.log(`\x1b[35mExecuting command: find latest .deb file in ${repoFolderPath}`);
   const latestDebFileCommand = `find "${tweaksFolderPath}" -type f -name '*.deb' -exec stat -f '%m %N' {} \\; | sort -n | tail -1 | awk '{print $2}'`;
-  console.log("Executing command: find latest .deb file in $repoFolderPath")
+  readlineSync.question('\x1b[33mPress Enter To Continue...\x1b[0m');
+  
+  console.log('\x1b[35mExecuting command to find the latest .deb file...\x1b[0m');
   const source = execSync(latestDebFileCommand).toString().trim();
-  console.log('Latest .deb file:', source);
+  console.log('\x1b[35mLatest .deb file:', `\x1b[36m${source}\x1b[0m`);
+  
   const destination = path.join(repoFolderPath, path.basename(source));
   copyFile(source, destination);
-  console.log(`Changing directory to: ${repoFolderPath}`);
+  
+  console.log(`\x1b[35mChanging directory to: \x1b[32m${repoFolderPath}\x1b[0m`);
   process.chdir(repoFolderPath); // Change the current working directory to the repo folder
-  console.log('Running the .sh script in the repo folder...');
+  
+  console.log('\x1b[36mRunning the .sh script in the repo folder...\x1b[0m');
   const scriptPath = '/Users/pixeljellyfish/repo/scan-packages.sh'; // Replace with the actual path of your .sh script
   execSync(`sh ${scriptPath}`, { stdio: 'inherit' });
-  console.log('Scan-packages script has completed successfully.');
-  console.log("Repo Has Been Updated!")
-  console.log("Thank You For Using Tweaks And Repo Manager!")
-  console.log("Exiting...")
+  
+  console.log('\x1b[35mThe scan-packages script has completed successfully.');
+  console.log('Repo Has Been Updated!');
+  console.log('hank You For Using Tweaks And Repo Manager!');
+  console.log('Exiting...\x1b[0m');
+  
   process.exit(0);
 }
 
