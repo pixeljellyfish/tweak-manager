@@ -1,0 +1,28 @@
+{
+  "name": "tweak-manager",
+  "version": "1.0.0",
+  "description": "A tweak/repo Manager to make managing a repo that much easier",
+  "bin": {
+    "TweakManager": "./TweakM.js"
+  },
+  "main": "TweakM.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pixeljellyfish/TweakManager.git"
+  },
+  "keywords": [
+    "Tweak"
+  ],
+  "author": "Pixeljellyfish",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pixeljellyfish/TweakManager/issues"
+  },
+  "homepage": "https://github.com/pixeljellyfish/TweakManager#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
