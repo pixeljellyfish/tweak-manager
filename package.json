@@ -7,7 +7,7 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
-  },  
+  },
   "main": "TweakM.js",
   "scripts": {
     "TweakM.js": "node TweakM.js"
