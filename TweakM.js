@@ -3,6 +3,9 @@
 const readlineSync = require('readline-sync');
 const { execSync } = require('child_process');
 const path = require('path');
+const repoPath = '/Users/pixeljellyfish/repo';
+const scriptPath = path.join(repoPath, 'scan-packages.sh');
+
 
 function copyFile(source, destination) {
   try {
@@ -49,13 +52,20 @@ function main() {
   copyFile(source, destination);
   
   console.log(`\x1b[35mChanging directory to: \x1b[32m${repoFolderPath}\x1b[0m`);
-  process.chdir(repoFolderPath); // Change the current working directory to the repo folder
-  
+  // Change current working directory to the repo folder
+  process.chdir(repoPath);
+
   console.log('\x1b[36mRunning the .sh script in the repo folder...\x1b[0m');
-  const scriptPath = '/Users/pixeljellyfish/repo/scan-packages.sh'; // Replace with the actual path of your .sh script
+  // Execute the scan-packages script
   execSync(`sh ${scriptPath}`, { stdio: 'inherit' });
   
+  console.log('Process completed successfully.');
   console.log('\x1b[35mThe scan-packages script has completed successfully.');
+
+  console.log('\x1b[35mUpdating the repo...');
+  // Update the repo
+  const updaterepocommand = 'git add . && git commit -m "Update repo files" && git push'
+  execSync(updaterepocommand, { stdio: 'inherit' });
   console.log('Repo Has Been Updated!');
   console.log('hank You For Using Tweaks And Repo Manager!');
   console.log('Exiting...\x1b[0m');
